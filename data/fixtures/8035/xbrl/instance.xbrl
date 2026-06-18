@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Illustrative SAMPLE EDINET XBRL instance for offline MVP execution.
+  Element names (jppfs_cor:*, jpcrp_cor:*, jpdei_cor:*) and context IDs
+  (CurrentYearDuration, PriorYearInstant, ...) follow real EDINET conventions.
+  Figures and narrative are illustrative, not authoritative.
+-->
+<xbrli:xbrl
+    xmlns:xbrli="http://www.xbrl.org/2003/instance"
+    xmlns:iso4217="http://www.xbrl.org/2003/iso4217"
+    xmlns:jpdei_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpdei/2013-08-31/jpdei_cor"
+    xmlns:jppfs_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jppfs/2023-12-01/jppfs_cor"
+    xmlns:jpcrp_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpcrp/2023-12-01/jpcrp_cor">
+
+  <xbrli:context id="CurrentYearDuration">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2023-04-01</xbrli:startDate>
+      <xbrli:endDate>2024-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+
+  <xbrli:context id="PriorYearDuration">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2022-04-01</xbrli:startDate>
+      <xbrli:endDate>2023-03-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+
+  <xbrli:context id="CurrentYearInstant">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2024-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+
+  <xbrli:context id="PriorYearInstant">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2023-03-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+
+  <xbrli:unit id="JPY">
+    <xbrli:measure>iso4217:JPY</xbrli:measure>
+  </xbrli:unit>
+
+  <jpdei_cor:FilerNameInJapaneseDEI contextRef="CurrentYearDuration">東京エレクトロン株式会社</jpdei_cor:FilerNameInJapaneseDEI>
+  <jpdei_cor:EDINETCodeDEI contextRef="CurrentYearDuration">E02652</jpdei_cor:EDINETCodeDEI>
+
+  <!-- Income statement (flows) -->
+  <jppfs_cor:NetSales contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">1830899000000</jppfs_cor:NetSales>
+  <jppfs_cor:NetSales contextRef="PriorYearDuration" unitRef="JPY" decimals="-6">2209025000000</jppfs_cor:NetSales>
+
+  <jppfs_cor:OperatingIncome contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">456357000000</jppfs_cor:OperatingIncome>
+  <jppfs_cor:OperatingIncome contextRef="PriorYearDuration" unitRef="JPY" decimals="-6">617008000000</jppfs_cor:OperatingIncome>
+
+  <jppfs_cor:ProfitLossAttributableToOwnersOfParent contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">363656000000</jppfs_cor:ProfitLossAttributableToOwnersOfParent>
+  <jppfs_cor:ProfitLossAttributableToOwnersOfParent contextRef="PriorYearDuration" unitRef="JPY" decimals="-6">471161000000</jppfs_cor:ProfitLossAttributableToOwnersOfParent>
+
+  <!-- Balance sheet (stocks) -->
+  <jppfs_cor:Assets contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">2402000000000</jppfs_cor:Assets>
+  <jppfs_cor:Assets contextRef="PriorYearInstant" unitRef="JPY" decimals="-6">2250000000000</jppfs_cor:Assets>
+
+  <jppfs_cor:NetAssets contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">1600000000000</jppfs_cor:NetAssets>
+  <jppfs_cor:NetAssets contextRef="PriorYearInstant" unitRef="JPY" decimals="-6">1500000000000</jppfs_cor:NetAssets>
+
+  <!-- Narrative sections (iXBRL text blocks; HTML content) -->
+  <jpcrp_cor:ManagementAnalysisOfFinancialPositionOperatingResultsAndCashFlowsTextBlock contextRef="CurrentYearDuration"><![CDATA[
+    <p>当連結会計年度の半導体製造装置市場は、メモリ向け投資の調整局面が継続しました。
+    For the fiscal year ended March 31, 2024, the semiconductor production equipment (SPE) market remained in a cyclical correction, driven primarily by a pullback in memory-related capital investment. As a result, consolidated net sales decreased to 1,830.9 billion yen, down 17.1% year on year, and operating income declined to 456.4 billion yen.</p>
+    <p>By application, demand for leading-edge logic and foundry equipment held up relatively well on the back of advanced-node investment, partially offsetting weaker memory demand. The Group continued to invest in research and development for next-generation processes and maintained a high operating margin of approximately 24.9% despite the lower revenue, reflecting disciplined cost management and a favorable product mix. The Group's financial position remained robust, with total assets of 2,402.0 billion yen and net assets of 1,600.0 billion yen.</p>
+  ]]></jpcrp_cor:ManagementAnalysisOfFinancialPositionOperatingResultsAndCashFlowsTextBlock>
+
+  <jpcrp_cor:BusinessRisksTextBlock contextRef="CurrentYearDuration"><![CDATA[
+    <p>事業等のリスク</p>
+    <ul>
+      <li>Semiconductor market cyclicality: Demand for production equipment is highly sensitive to the semiconductor capital expenditure cycle, which can swing sharply between memory and logic/foundry segments and materially affect the Group's results.</li>
+      <li>Geopolitical and export-control risk: Tightening export regulations and trade restrictions, particularly concerning China, could limit addressable markets and disrupt customer investment plans.</li>
+      <li>Customer concentration: A significant portion of revenue derives from a limited number of large semiconductor manufacturers; changes in their investment plans can have an outsized impact.</li>
+      <li>Foreign exchange risk: A large share of sales is denominated in foreign currencies, so yen appreciation could reduce reported revenue and profitability.</li>
+      <li>Technological change: Failure to keep pace with rapid advances in process technology could erode the Group's competitive position.</li>
+    </ul>
+  ]]></jpcrp_cor:BusinessRisksTextBlock>
+
+  <jpcrp_cor:BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock contextRef="CurrentYearDuration"><![CDATA[
+    <p>経営方針・経営環境及び対処すべき課題等</p>
+    <p>The Group expects medium-to-long-term growth in semiconductor demand driven by generative AI, high-performance computing, data centers, and the proliferation of advanced-node devices. Management anticipates a recovery in wafer fab equipment investment as memory markets normalize and AI-related demand accelerates.</p>
+    <p>To capture this opportunity, the Group will prioritize R&D investment in etch, deposition, cleaning, and coater/developer technologies for leading-edge nodes, expand field-solution (service) revenue tied to its growing installed base, and pursue further improvements in profitability and capital efficiency. Management aims to deliver sustainable growth while returning capital to shareholders through dividends and share buybacks.</p>
+  ]]></jpcrp_cor:BusinessPolicyBusinessEnvironmentIssuesToAddressEtcTextBlock>
+
+</xbrli:xbrl>

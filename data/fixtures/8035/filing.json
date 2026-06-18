@@ -1,0 +1,13 @@
+{
+  "ticker": "8035",
+  "company_name": "Tokyo Electron Limited",
+  "company_name_jp": "東京エレクトロン株式会社",
+  "edinet_code": "E02652",
+  "doc_id": "SAMPLE-8035-FY2024",
+  "form_type": "Annual Securities Report (有価証券報告書)",
+  "fiscal_year": "2024-03-31",
+  "submitted_date": "2024-06-27",
+  "data_kind": "SAMPLE",
+  "xbrl_relpath": "xbrl/instance.xbrl",
+  "note": "Illustrative synthetic filing bundled so the MVP runs end-to-end offline. The XBRL element names and context structure mirror real EDINET filings, but the figures and narrative are approximate/illustrative and are NOT authoritative EDINET data. Set EDINET_API_KEY to fetch the real filing."
+}
