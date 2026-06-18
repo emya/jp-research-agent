@@ -6,7 +6,7 @@ An AI research agent that transforms Japanese public company disclosures into in
 
 ## Motivation
 
-I have a friend in Japan who actively researches and invests in Japanese equities.
+I have a friend who's originally from Japan and actively researches and invests in equities.
 
 During a conversation about companies involved in the semiconductor supply chain, she mentioned something that surprised me:
 
