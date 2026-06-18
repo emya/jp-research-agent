@@ -247,3 +247,5 @@ It does not provide investment advice and should not be used as the sole basis f
 * Multimodal analysis of charts, tables, and investor presentations
 * Agentic research workflows over public filings
 
+## Notes:
+EDINET is a bit old-fashioned. When creating an API key, you may need to use Microsoft Edge or enable pop-ups in Chrome.
