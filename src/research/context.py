@@ -8,12 +8,46 @@ from __future__ import annotations
 from typing import Dict, List, Optional
 
 from ..models.filing import FilingDocument, FilingSections
+from ..models.financial_history import FinancialHistory
 from ..models.financial_metrics import (
     FLOW_METRICS,
     METRIC_KEYS,
     FinancialMetrics,
     compute_growth,
 )
+
+# Latest-year valuation/per-share metrics to surface in the memo, in order.
+_VALUATION_ORDER = [
+    ("per", "P/E ratio (PER)"),
+    ("eps", "EPS (basic)"),
+    ("bps", "BPS"),
+    ("roe", "ROE"),
+    ("payout_ratio", "Payout ratio"),
+    ("dps", "Dividend / share"),
+]
+
+
+def _latest_valuation(history: Optional[FinancialHistory]):
+    """Return [(label, value_str)] for the most recent year of each valuation
+    metric available in the history."""
+    out = []
+    if history is None:
+        return out
+    for key, label in _VALUATION_ORDER:
+        ser = history.series.get(key)
+        if not ser or not ser.points:
+            continue
+        p = ser.points[-1]
+        if ser.unit == "x":
+            vs = f"{p.value:.1f}×"
+        elif ser.unit == "%":
+            vs = f"{p.value:.1f}%"
+        elif ser.unit == "JPY/share":
+            vs = f"¥{p.value:,.0f}"
+        else:
+            vs = f"{p.value:,.0f}"
+        out.append((f"{label} (FY{p.year})", vs))
+    return out
 
 _LABELS = {
     "revenue": "Revenue",
@@ -60,6 +94,7 @@ def build_context(
     current: FinancialMetrics,
     prior: Optional[FinancialMetrics],
     sections: FilingSections,
+    history: Optional[FinancialHistory] = None,
 ) -> Dict:
     growth = compute_growth(current, prior)
 
@@ -89,6 +124,10 @@ def build_context(
     if margin is not None:
         highlights.append(f"Operating margin: {margin * 100:.1f}%")
 
+    valuation = _latest_valuation(history)
+    for label, value_str in valuation:
+        highlights.append(f"{label}: {value_str}")
+
     section_text: Dict[str, str] = {}
     for name, section in sections.present().items():
         section_text[name] = section.text
@@ -102,6 +141,7 @@ def build_context(
         "source_label": filing.source,
         "metric_rows": metric_rows,
         "highlights": highlights,
+        "valuation": valuation,
         "growth": growth,
         "operating_margin": margin,
         "sections": section_text,
@@ -125,6 +165,11 @@ def context_as_prompt_block(ctx: Dict, section_char_limit: int = 4000) -> str:
         )
     if ctx["operating_margin"] is not None:
         lines.append(f"  - Operating margin: {ctx['operating_margin'] * 100:.1f}%")
+    if ctx.get("valuation"):
+        lines.append("")
+        lines.append("VALUATION & PER-SHARE (latest FY, from the XBRL 5-year summary — authoritative):")
+        for label, value_str in ctx["valuation"]:
+            lines.append(f"  - {label}: {value_str}")
     lines.append("")
     for name, text in ctx["sections"].items():
         label = ctx["section_labels"].get(name, name)
