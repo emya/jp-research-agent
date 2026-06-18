@@ -10,7 +10,8 @@
     xmlns:iso4217="http://www.xbrl.org/2003/iso4217"
     xmlns:jpdei_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpdei/2013-08-31/jpdei_cor"
     xmlns:jppfs_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jppfs/2023-12-01/jppfs_cor"
-    xmlns:jpcrp_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpcrp/2023-12-01/jpcrp_cor">
+    xmlns:jpcrp_cor="http://disclosure.edinet-fsa.go.jp/taxonomy/jpcrp/2023-12-01/jpcrp_cor"
+    xmlns:xbrldi="http://xbrl.org/2006/xbrldi">
 
   <xbrli:context id="CurrentYearDuration">
     <xbrli:entity>
@@ -50,8 +51,77 @@
     </xbrli:period>
   </xbrli:context>
 
+  <!-- 5-year summary contexts (主要な経営指標等の推移): Prior1..Prior4 -->
+  <xbrli:context id="Prior1YearDuration">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2022-04-01</xbrli:startDate><xbrli:endDate>2023-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior2YearDuration">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2021-04-01</xbrli:startDate><xbrli:endDate>2022-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior3YearDuration">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2020-04-01</xbrli:startDate><xbrli:endDate>2021-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior4YearDuration">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2019-04-01</xbrli:startDate><xbrli:endDate>2020-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior1YearInstant">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:instant>2023-03-31</xbrli:instant></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior2YearInstant">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:instant>2022-03-31</xbrli:instant></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior3YearInstant">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:instant>2021-03-31</xbrli:instant></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior4YearInstant">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:instant>2020-03-31</xbrli:instant></xbrli:period>
+  </xbrli:context>
+
+  <!-- Parent-only (non-consolidated) contexts for dividend & payout ratio -->
+  <xbrli:context id="CurrentYearDuration_NonConsolidatedMember">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+      <xbrli:segment><xbrldi:explicitMember dimension="jpcrp_cor:ConsolidatedOrNonConsolidatedAxis">jpcrp_cor:NonConsolidatedMember</xbrldi:explicitMember></xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period><xbrli:startDate>2023-04-01</xbrli:startDate><xbrli:endDate>2024-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior1YearDuration_NonConsolidatedMember">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+      <xbrli:segment><xbrldi:explicitMember dimension="jpcrp_cor:ConsolidatedOrNonConsolidatedAxis">jpcrp_cor:NonConsolidatedMember</xbrldi:explicitMember></xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period><xbrli:startDate>2022-04-01</xbrli:startDate><xbrli:endDate>2023-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior2YearDuration_NonConsolidatedMember">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+      <xbrli:segment><xbrldi:explicitMember dimension="jpcrp_cor:ConsolidatedOrNonConsolidatedAxis">jpcrp_cor:NonConsolidatedMember</xbrldi:explicitMember></xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period><xbrli:startDate>2021-04-01</xbrli:startDate><xbrli:endDate>2022-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior3YearDuration_NonConsolidatedMember">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+      <xbrli:segment><xbrldi:explicitMember dimension="jpcrp_cor:ConsolidatedOrNonConsolidatedAxis">jpcrp_cor:NonConsolidatedMember</xbrldi:explicitMember></xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period><xbrli:startDate>2020-04-01</xbrli:startDate><xbrli:endDate>2021-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Prior4YearDuration_NonConsolidatedMember">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+      <xbrli:segment><xbrldi:explicitMember dimension="jpcrp_cor:ConsolidatedOrNonConsolidatedAxis">jpcrp_cor:NonConsolidatedMember</xbrldi:explicitMember></xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period><xbrli:startDate>2019-04-01</xbrli:startDate><xbrli:endDate>2020-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+
   <xbrli:unit id="JPY">
     <xbrli:measure>iso4217:JPY</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="pure">
+    <xbrli:measure>xbrli:pure</xbrli:measure>
   </xbrli:unit>
 
   <jpdei_cor:FilerNameInJapaneseDEI contextRef="CurrentYearDuration">東京エレクトロン株式会社</jpdei_cor:FilerNameInJapaneseDEI>
@@ -73,6 +143,81 @@
 
   <jppfs_cor:NetAssets contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">1600000000000</jppfs_cor:NetAssets>
   <jppfs_cor:NetAssets contextRef="PriorYearInstant" unitRef="JPY" decimals="-6">1500000000000</jppfs_cor:NetAssets>
+
+  <!-- 5-year Summary of Business Results (主要な経営指標等の推移) -->
+  <jpcrp_cor:NetSalesSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">1830899000000</jpcrp_cor:NetSalesSummaryOfBusinessResults>
+  <jpcrp_cor:NetSalesSummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">2209025000000</jpcrp_cor:NetSalesSummaryOfBusinessResults>
+  <jpcrp_cor:NetSalesSummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="JPY" decimals="-6">2003805000000</jpcrp_cor:NetSalesSummaryOfBusinessResults>
+  <jpcrp_cor:NetSalesSummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="JPY" decimals="-6">1399102000000</jpcrp_cor:NetSalesSummaryOfBusinessResults>
+  <jpcrp_cor:NetSalesSummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="JPY" decimals="-6">1127286000000</jpcrp_cor:NetSalesSummaryOfBusinessResults>
+
+  <jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">472000000000</jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults>
+  <jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">631000000000</jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults>
+  <jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="JPY" decimals="-6">537000000000</jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults>
+  <jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="JPY" decimals="-6">321000000000</jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults>
+  <jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="JPY" decimals="-6">240000000000</jpcrp_cor:OrdinaryIncomeLossSummaryOfBusinessResults>
+
+  <jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">363656000000</jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults>
+  <jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">471161000000</jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults>
+  <jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="JPY" decimals="-6">437076000000</jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults>
+  <jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="JPY" decimals="-6">242945000000</jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults>
+  <jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="JPY" decimals="-6">184966000000</jpcrp_cor:ProfitLossAttributableToOwnersOfParentSummaryOfBusinessResults>
+
+  <jpcrp_cor:TotalAssetsSummaryOfBusinessResults contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">2402000000000</jpcrp_cor:TotalAssetsSummaryOfBusinessResults>
+  <jpcrp_cor:TotalAssetsSummaryOfBusinessResults contextRef="Prior1YearInstant" unitRef="JPY" decimals="-6">2250000000000</jpcrp_cor:TotalAssetsSummaryOfBusinessResults>
+  <jpcrp_cor:TotalAssetsSummaryOfBusinessResults contextRef="Prior2YearInstant" unitRef="JPY" decimals="-6">1931000000000</jpcrp_cor:TotalAssetsSummaryOfBusinessResults>
+  <jpcrp_cor:TotalAssetsSummaryOfBusinessResults contextRef="Prior3YearInstant" unitRef="JPY" decimals="-6">1612000000000</jpcrp_cor:TotalAssetsSummaryOfBusinessResults>
+  <jpcrp_cor:TotalAssetsSummaryOfBusinessResults contextRef="Prior4YearInstant" unitRef="JPY" decimals="-6">1329000000000</jpcrp_cor:TotalAssetsSummaryOfBusinessResults>
+
+  <jpcrp_cor:NetAssetsSummaryOfBusinessResults contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">1600000000000</jpcrp_cor:NetAssetsSummaryOfBusinessResults>
+  <jpcrp_cor:NetAssetsSummaryOfBusinessResults contextRef="Prior1YearInstant" unitRef="JPY" decimals="-6">1500000000000</jpcrp_cor:NetAssetsSummaryOfBusinessResults>
+  <jpcrp_cor:NetAssetsSummaryOfBusinessResults contextRef="Prior2YearInstant" unitRef="JPY" decimals="-6">1230000000000</jpcrp_cor:NetAssetsSummaryOfBusinessResults>
+  <jpcrp_cor:NetAssetsSummaryOfBusinessResults contextRef="Prior3YearInstant" unitRef="JPY" decimals="-6">1041000000000</jpcrp_cor:NetAssetsSummaryOfBusinessResults>
+  <jpcrp_cor:NetAssetsSummaryOfBusinessResults contextRef="Prior4YearInstant" unitRef="JPY" decimals="-6">905000000000</jpcrp_cor:NetAssetsSummaryOfBusinessResults>
+
+  <jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults contextRef="CurrentYearInstant" unitRef="pure" decimals="3">0.666</jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults>
+  <jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults contextRef="Prior1YearInstant" unitRef="pure" decimals="3">0.667</jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults>
+  <jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults contextRef="Prior2YearInstant" unitRef="pure" decimals="3">0.637</jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults>
+  <jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults contextRef="Prior3YearInstant" unitRef="pure" decimals="3">0.646</jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults>
+  <jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults contextRef="Prior4YearInstant" unitRef="pure" decimals="3">0.681</jpcrp_cor:EquityToAssetRatioSummaryOfBusinessResults>
+
+  <!-- Per-share & valuation metrics (consolidated, member-free) -->
+  <jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPY" decimals="2">2316.00</jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="JPY" decimals="2">3001.00</jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="JPY" decimals="2">2784.00</jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="JPY" decimals="2">1547.00</jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="JPY" decimals="2">1178.00</jpcrp_cor:BasicEarningsLossPerShareSummaryOfBusinessResults>
+
+  <jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults contextRef="CurrentYearInstant" unitRef="JPY" decimals="2">10191.00</jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults contextRef="Prior1YearInstant" unitRef="JPY" decimals="2">9554.00</jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults contextRef="Prior2YearInstant" unitRef="JPY" decimals="2">7834.00</jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults contextRef="Prior3YearInstant" unitRef="JPY" decimals="2">6631.00</jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults contextRef="Prior4YearInstant" unitRef="JPY" decimals="2">5764.00</jpcrp_cor:NetAssetsPerShareSummaryOfBusinessResults>
+
+  <jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="pure" decimals="2">17.00</jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults>
+  <jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="pure" decimals="2">50.00</jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults>
+  <jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="pure" decimals="2">16.00</jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults>
+  <jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="pure" decimals="2">22.00</jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults>
+  <jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="pure" decimals="2">30.00</jpcrp_cor:PriceEarningsRatioSummaryOfBusinessResults>
+
+  <jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="pure" decimals="3">0.227</jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults>
+  <jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="pure" decimals="3">0.314</jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults>
+  <jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="pure" decimals="3">0.355</jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults>
+  <jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="pure" decimals="3">0.233</jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults>
+  <jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="pure" decimals="3">0.204</jpcrp_cor:RateOfReturnOnEquitySummaryOfBusinessResults>
+
+  <!-- Parent-only (non-consolidated) dividend & payout ratio -->
+  <jpcrp_cor:PayoutRatioSummaryOfBusinessResults contextRef="CurrentYearDuration_NonConsolidatedMember" unitRef="pure" decimals="3">0.500</jpcrp_cor:PayoutRatioSummaryOfBusinessResults>
+  <jpcrp_cor:PayoutRatioSummaryOfBusinessResults contextRef="Prior1YearDuration_NonConsolidatedMember" unitRef="pure" decimals="3">0.550</jpcrp_cor:PayoutRatioSummaryOfBusinessResults>
+  <jpcrp_cor:PayoutRatioSummaryOfBusinessResults contextRef="Prior2YearDuration_NonConsolidatedMember" unitRef="pure" decimals="3">0.500</jpcrp_cor:PayoutRatioSummaryOfBusinessResults>
+  <jpcrp_cor:PayoutRatioSummaryOfBusinessResults contextRef="Prior3YearDuration_NonConsolidatedMember" unitRef="pure" decimals="3">0.450</jpcrp_cor:PayoutRatioSummaryOfBusinessResults>
+  <jpcrp_cor:PayoutRatioSummaryOfBusinessResults contextRef="Prior4YearDuration_NonConsolidatedMember" unitRef="pure" decimals="3">0.400</jpcrp_cor:PayoutRatioSummaryOfBusinessResults>
+
+  <jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults contextRef="CurrentYearDuration_NonConsolidatedMember" unitRef="JPY" decimals="2">1158.00</jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults contextRef="Prior1YearDuration_NonConsolidatedMember" unitRef="JPY" decimals="2">1650.00</jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults contextRef="Prior2YearDuration_NonConsolidatedMember" unitRef="JPY" decimals="2">1392.00</jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults contextRef="Prior3YearDuration_NonConsolidatedMember" unitRef="JPY" decimals="2">696.00</jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults>
+  <jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults contextRef="Prior4YearDuration_NonConsolidatedMember" unitRef="JPY" decimals="2">470.00</jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults>
 
   <!-- Narrative sections (iXBRL text blocks; HTML content) -->
   <jpcrp_cor:ManagementAnalysisOfFinancialPositionOperatingResultsAndCashFlowsTextBlock contextRef="CurrentYearDuration"><![CDATA[

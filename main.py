@@ -92,6 +92,7 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Generate a research memo for a Japanese listed company.")
     parser.add_argument("--ticker", required=True, help="4-digit TSE ticker, e.g. 8035")
     parser.add_argument("--no-llm", action="store_true", help="Force offline (template) memo generation")
+    parser.add_argument("--no-charts", action="store_true", help="Skip generating the interactive history charts")
     parser.add_argument("--output", default=None, help="Output root directory (default: data/output)")
     parser.add_argument("--quiet", action="store_true", help="Don't print the memo to stdout")
     parser.add_argument(
@@ -116,7 +117,12 @@ def main(argv=None) -> int:
         )
 
     try:
-        result = run(args.ticker, use_llm=use_llm, output_root=args.output)
+        result = run(
+            args.ticker,
+            use_llm=use_llm,
+            output_root=args.output,
+            make_charts=not args.no_charts,
+        )
     except (EDINETError, PipelineError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
@@ -135,6 +141,9 @@ def main(argv=None) -> int:
     print("Artifacts written:", file=sys.stderr)
     for name, path in result["artifacts"].items():
         print(f"  {name}: {path}", file=sys.stderr)
+    charts = result["artifacts"].get("charts_html")
+    if charts:
+        print(f"\nOpen the interactive charts:  open {charts}", file=sys.stderr)
     print("", file=sys.stderr)
 
     if not args.quiet:

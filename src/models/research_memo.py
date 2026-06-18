@@ -24,6 +24,8 @@ class ResearchMemo(BaseModel):
     sources: List[str] = Field(default_factory=list)
     # Honest caveat about the data behind the memo (e.g. SAMPLE vs OFFICIAL).
     data_caveat: str = ""
+    # Path to the interactive financial-history charts (if generated).
+    charts_path: str = ""
 
     def to_markdown(self) -> str:
         lines: List[str] = []
@@ -56,6 +58,12 @@ class ResearchMemo(BaseModel):
         lines.append("")
         lines.append(self.bear_thesis)
         lines.append("")
+        if self.charts_path:
+            lines.append("## Financial History")
+            lines.append("")
+            lines.append(f"Interactive 5-year charts (revenue, earnings, assets, debt, ratios): "
+                         f"[{self.charts_path}]({self.charts_path})")
+            lines.append("")
         lines.append("---")
         lines.append(f"_Generation mode: {self.generation_mode}_")
         if self.sources:
