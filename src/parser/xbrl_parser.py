@@ -63,6 +63,7 @@ CANDIDATES: Dict[str, List[str]] = {
     # Capex (cash flow statement, investing section) — single-period only.
     "capex": [
         "PurchaseOfPropertyPlantAndEquipmentInvCF",
+        "PurchaseOfPropertyPlantAndEquipmentInvCFIFRS",
         "PaymentsForPurchaseOfPropertyPlantAndEquipmentIFRS",
         "PurchaseOfPropertyPlantAndEquipment",
     ],
@@ -144,14 +145,25 @@ SUMMARY_CANDIDATES: Dict[str, List[str]] = {
         "DividendPaidPerShareSummaryOfBusinessResults",
         "DividendPerShareSummaryOfBusinessResults",
     ],
-    # Cash flow (also in the 5-year summary).
-    "operating_cf": ["NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults"],
+    # Cash flow (also in the 5-year summary). JGAAP uses NetCashProvidedByUsedIn*;
+    # IFRS filers use CashFlowsFromUsedIn*IFRS.
+    "operating_cf": [
+        "NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults",
+        "CashFlowsFromUsedInOperatingActivitiesIFRSSummaryOfBusinessResults",
+    ],
     "investing_cf": [
         "NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults",
         "NetCashProvidedByUsedInInvestmentActivitiesSummaryOfBusinessResults",
+        "CashFlowsFromUsedInInvestingActivitiesIFRSSummaryOfBusinessResults",
     ],
-    "financing_cf": ["NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults"],
-    "cash": ["CashAndCashEquivalentsSummaryOfBusinessResults"],
+    "financing_cf": [
+        "NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults",
+        "CashFlowsFromUsedInFinancingActivitiesIFRSSummaryOfBusinessResults",
+    ],
+    "cash": [
+        "CashAndCashEquivalentsSummaryOfBusinessResults",
+        "CashAndCashEquivalentsIFRSSummaryOfBusinessResults",
+    ],
 }
 
 SUMMARY_LABELS = {

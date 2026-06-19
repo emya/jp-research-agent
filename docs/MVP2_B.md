@@ -43,12 +43,31 @@ and segment data, and (stretch) ingest earnings-call / IR-deck material.
   history, long-history, and a new "Cash flow" chart panel automatically.
   Capex (`PurchaseOfPropertyPlantAndEquipmentInvCF`) extracted as a single-period
   `FinancialMetrics.capex` field (not in the 5 coverage metrics). Verified live on TEL.
-* [ ] M2.4 — segments
+* [~] M2.4 — segments — **ATTEMPTED & PARKED** (2026-06-19). Built business-segment
+  extraction (`OperatingSegmentsAxis`) + label resolution from the `_lab-en.xml`
+  linkbase. Spike findings: structured segment data is **unreliable** — works
+  cleanly for some filers (Advantest: 3 named segments) but (a) coverage is
+  inconsistent across filers *and years* (TEL tags segments in its FY2022 `.xbrl`
+  but **not** FY2025 — moved to inline-XBRL `.htm`, which we don't parse), and
+  (b) label quality varies (SCREEN → abbreviations / empty). Reliable coverage
+  would need a new iXBRL `.htm` parser + per-filer label normalization, with
+  residual gaps. Not worth it vs. the standardized summary data. Experimental
+  code removed. Geographic segments: not dimensionally tagged at all (earlier finding).
 * [x] M2.5 — benchmark extended: cash-flow coverage, capex presence, and a
   **cash-flow reconciliation** (Δcash ≈ operating+investing+financing CF;
   residual ≈ FX effect, tolerance 25%). New `CF`/`CF-rec` table columns +
   `mean_cash_flow_coverage` aggregate. Verified: real TEL FY2025 reconciles at 1.1% residual.
-* [ ] M2.6 (stretch) — IR/earnings multimodal
+* [~] M2.6 (stretch) — IR/earnings multimodal. **Built** (`src/presentation.py`,
+  `src/models/presentation.py`, `llm.analyze_pdf_json`). Scope = **bring-your-own-PDF**
+  (no scraping — IR decks aren't in EDINET). Uses **Claude native PDF input**
+  (requires `ANTHROPIC_API_KEY`; OpenAI would need page-image conversion).
+  Cross-references the deck against the XBRL-extracted financials. `IR/` gitignored.
+  `python -m src.presentation IR/8035.pdf --ticker 8035`. **DONE — live-verified on
+  TEL's FY2026 deck:** extracted forward guidance (H1 FY2027 +33% sales; medium-term
+  ¥3T revenue / 35% OP margin / 30% ROE targets) the *filing* doesn't emphasize, and
+  the consistency check correctly identified that our XBRL was the prior year (FY2025),
+  matched the deck's prior-year column exactly, and **caught a real basis difference**
+  (our parent payout 64.1% vs the deck's consolidated 50.1%, reconciled via DPS/EPS).
 
 ## Success criteria
 
