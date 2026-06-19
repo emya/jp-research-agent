@@ -129,20 +129,20 @@
 
   <!-- Income statement (flows) -->
   <jppfs_cor:NetSales contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">1830899000000</jppfs_cor:NetSales>
-  <jppfs_cor:NetSales contextRef="PriorYearDuration" unitRef="JPY" decimals="-6">2209025000000</jppfs_cor:NetSales>
+  <jppfs_cor:NetSales contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">2209025000000</jppfs_cor:NetSales>
 
   <jppfs_cor:OperatingIncome contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">456357000000</jppfs_cor:OperatingIncome>
-  <jppfs_cor:OperatingIncome contextRef="PriorYearDuration" unitRef="JPY" decimals="-6">617008000000</jppfs_cor:OperatingIncome>
+  <jppfs_cor:OperatingIncome contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">617008000000</jppfs_cor:OperatingIncome>
 
   <jppfs_cor:ProfitLossAttributableToOwnersOfParent contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">363656000000</jppfs_cor:ProfitLossAttributableToOwnersOfParent>
-  <jppfs_cor:ProfitLossAttributableToOwnersOfParent contextRef="PriorYearDuration" unitRef="JPY" decimals="-6">471161000000</jppfs_cor:ProfitLossAttributableToOwnersOfParent>
+  <jppfs_cor:ProfitLossAttributableToOwnersOfParent contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">471161000000</jppfs_cor:ProfitLossAttributableToOwnersOfParent>
 
   <!-- Balance sheet (stocks) -->
   <jppfs_cor:Assets contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">2402000000000</jppfs_cor:Assets>
-  <jppfs_cor:Assets contextRef="PriorYearInstant" unitRef="JPY" decimals="-6">2250000000000</jppfs_cor:Assets>
+  <jppfs_cor:Assets contextRef="Prior1YearInstant" unitRef="JPY" decimals="-6">2250000000000</jppfs_cor:Assets>
 
   <jppfs_cor:NetAssets contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">1600000000000</jppfs_cor:NetAssets>
-  <jppfs_cor:NetAssets contextRef="PriorYearInstant" unitRef="JPY" decimals="-6">1500000000000</jppfs_cor:NetAssets>
+  <jppfs_cor:NetAssets contextRef="Prior1YearInstant" unitRef="JPY" decimals="-6">1500000000000</jppfs_cor:NetAssets>
 
   <!-- 5-year Summary of Business Results (主要な経営指標等の推移) -->
   <jpcrp_cor:NetSalesSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">1830899000000</jpcrp_cor:NetSalesSummaryOfBusinessResults>

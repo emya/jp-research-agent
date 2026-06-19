@@ -65,7 +65,12 @@ CANDIDATES: Dict[str, List[str]] = {
 # Which contexts feed which period bucket. Durations carry flows; instants carry
 # stocks. We merge the duration + instant of the same fiscal year into one record.
 _CURRENT_CONTEXTS = {"CurrentYearDuration", "CurrentYearInstant"}
-_PRIOR_CONTEXTS = {"PriorYearDuration", "PriorYearInstant"}
+# Real EDINET filings tag the prior-year comparative as Prior1Year*; some use
+# PriorYear*. Accept both so YoY extraction works across filers.
+_PRIOR_CONTEXTS = {
+    "PriorYearDuration", "PriorYearInstant",
+    "Prior1YearDuration", "Prior1YearInstant",
+}
 
 # Element local-names in the 5-year "Summary of Business Results"
 # (主要な経営指標等の推移). These carry one fact per fiscal year, across
@@ -271,7 +276,7 @@ class XBRLParser:
         periods: Dict[str, FinancialMetrics] = {}
         bucket_contexts = {
             "current": ["CurrentYearInstant", "CurrentYearDuration"],
-            "prior": ["PriorYearInstant", "PriorYearDuration"],
+            "prior": ["Prior1YearInstant", "Prior1YearDuration", "PriorYearInstant", "PriorYearDuration"],
         }
         for bucket, metrics in found.items():
             if not metrics:
