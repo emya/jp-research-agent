@@ -110,6 +110,13 @@ def _extraction_report(result: Dict) -> Dict:
 
     history_years = max((len(s.points) for s in history.series.values()), default=0)
 
+    # Cash flow (MVP2 Track B M2.3/M2.5).
+    cf_keys = ["operating_cf", "investing_cf", "financing_cf"]
+    cf_found = [k for k in cf_keys if history.series.get(k) and history.series[k].points]
+    cf_coverage = len(cf_found) / len(cf_keys)
+    capex_present = bool(current and current.get("capex") is not None)
+    cf_recon = _cash_flow_reconciliation(history)
+
     return {
         "coverage": coverage,
         "metrics_found": found,
@@ -119,7 +126,32 @@ def _extraction_report(result: Dict) -> Dict:
         "sanity": sanity,
         "history_years": history_years,
         "history_series": sorted(history.series.keys()),
+        "cash_flow_coverage": cf_coverage,
+        "capex_present": capex_present,
+        "cash_flow_reconciliation": cf_recon,
     }
+
+
+def _cash_flow_reconciliation(history) -> Optional[Dict]:
+    """Cross-check: the year-over-year change in cash should approximately equal
+    operating + investing + financing CF (residual ≈ FX effect on cash)."""
+    def by_year(name):
+        s = history.series.get(name)
+        return {p.year: p.value for p in s.points} if s else {}
+
+    cash, ocf, icf, fcf = by_year("cash"), by_year("operating_cf"), by_year("investing_cf"), by_year("financing_cf")
+    years = sorted(set(cash) & set(ocf) & set(icf) & set(fcf), reverse=True)
+    for y in years:
+        if (y - 1) in cash:
+            change = cash[y] - cash[y - 1]
+            flows = ocf[y] + icf[y] + fcf[y]
+            denom = max(abs(change), abs(flows), 1.0)
+            residual = abs(change - flows) / denom
+            return {
+                "year": y, "cash_change": change, "flows_sum": flows,
+                "residual_pct": residual, "reconciles": residual < 0.25,
+            }
+    return None
 
 
 def _research_judge(result: Dict) -> Dict:
@@ -203,12 +235,13 @@ def aggregate(reports: List[Dict]) -> Dict:
         "mean_research_score": mean(
             [r["research"]["_mean_score"] for r in ok if "research" in r]
         ),
+        "mean_cash_flow_coverage": mean([r["extraction"]["cash_flow_coverage"] for r in ok]),
     }
 
 
 def _print_table(reports: List[Dict]) -> None:
-    print(f"\n{'Ticker':7} {'Company':26} {'Cov':>4} {'Consist':>7} {'Sanity':>6} {'Yrs':>3} {'Research':>8}")
-    print("-" * 70)
+    print(f"\n{'Ticker':7} {'Company':26} {'Cov':>4} {'Consist':>7} {'CF':>4} {'CF-rec':>7} {'Sanity':>6} {'Yrs':>3} {'Research':>8}")
+    print("-" * 84)
     for r in reports:
         if not r.get("ok"):
             print(f"{r['ticker']:7} {'(failed)':26} {r['error'][:40]}")
@@ -217,9 +250,12 @@ def _print_table(reports: List[Dict]) -> None:
         research = f"{r['research']['_mean_score']:.2f}/5" if "research" in r else "—"
         sanity = "pass" if e["sanity_pass"] else ("fail" if e["sanity_pass"] is False else "—")
         consist = f"{e['consistency']*100:.0f}%" if e["consistency"] is not None else "—"
+        cf = f"{e['cash_flow_coverage']*100:.0f}%"
+        rec = e.get("cash_flow_reconciliation")
+        cf_rec = ("ok" if rec["reconciles"] else f"{rec['residual_pct']*100:.0f}%off") if rec else "—"
         print(
             f"{r['ticker']:7} {r['company'][:26]:26} {e['coverage']*100:>3.0f}% "
-            f"{consist:>7} {sanity:>6} {e['history_years']:>3} {research:>8}"
+            f"{consist:>7} {cf:>4} {cf_rec:>7} {sanity:>6} {e['history_years']:>3} {research:>8}"
         )
 
 

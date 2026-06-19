@@ -60,6 +60,12 @@ CANDIDATES: Dict[str, List[str]] = {
         "ShareholdersEquity",
         "NetAssetsSummaryOfBusinessResults",
     ],
+    # Capex (cash flow statement, investing section) — single-period only.
+    "capex": [
+        "PurchaseOfPropertyPlantAndEquipmentInvCF",
+        "PaymentsForPurchaseOfPropertyPlantAndEquipmentIFRS",
+        "PurchaseOfPropertyPlantAndEquipment",
+    ],
 }
 
 # Which contexts feed which period bucket. Durations carry flows; instants carry
@@ -138,6 +144,14 @@ SUMMARY_CANDIDATES: Dict[str, List[str]] = {
         "DividendPaidPerShareSummaryOfBusinessResults",
         "DividendPerShareSummaryOfBusinessResults",
     ],
+    # Cash flow (also in the 5-year summary).
+    "operating_cf": ["NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults"],
+    "investing_cf": [
+        "NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults",
+        "NetCashProvidedByUsedInInvestmentActivitiesSummaryOfBusinessResults",
+    ],
+    "financing_cf": ["NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults"],
+    "cash": ["CashAndCashEquivalentsSummaryOfBusinessResults"],
 }
 
 SUMMARY_LABELS = {
@@ -156,6 +170,11 @@ SUMMARY_LABELS = {
     "roe": "ROE",
     "payout_ratio": "Payout ratio (parent)",
     "dps": "Dividend / share (parent)",
+    "operating_cf": "Operating cash flow",
+    "investing_cf": "Investing cash flow",
+    "financing_cf": "Financing cash flow",
+    "cash": "Cash & equivalents",
+    "fcf": "Free cash flow (proxy)",
 }
 
 # Unit per metric: "JPY" (¥, large), "JPY/share" (¥ per share), "%", or "x" (ratio).
@@ -406,6 +425,24 @@ class XBRLParser:
             for y in sorted(set(revenue) & set(net_income))
             if revenue[y].value
         ]
+        # Free cash flow proxy = operating CF + investing CF (investing CF is a
+        # cash outflow, so this approximates OCF - capex). Labelled a proxy.
+        ocf = by_year("operating_cf")
+        icf = by_year("investing_cf")
+        fcf_points = [
+            HistoryPoint(
+                fiscal_year=ocf[y].fiscal_year,
+                year=y,
+                value=ocf[y].value + icf[y].value,
+                source_element="derived: operating_cf + investing_cf",
+            )
+            for y in sorted(set(ocf) & set(icf))
+        ]
+        if fcf_points:
+            series["fcf"] = MetricSeries(
+                metric="fcf", label=SUMMARY_LABELS["fcf"], unit="JPY", points=fcf_points
+            )
+
         if margin_points:
             series["net_margin"] = MetricSeries(
                 metric="net_margin", label=SUMMARY_LABELS["net_margin"], unit="%", points=margin_points

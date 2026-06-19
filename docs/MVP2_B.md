@@ -1,6 +1,6 @@
 # MVP2 Track B — Deeper Data & Longer History
 
-Status: **planned** (starts after Track A)
+Status: **in progress** (started 2026-06-18) — M2.1 + M2.2 built & offline-tested
 
 ## Goal
 
@@ -33,11 +33,21 @@ and segment data, and (stretch) ingest earnings-call / IR-deck material.
 
 ## Milestones
 
-* [ ] M2.1 — multi-filing fetch + cache
-* [ ] M2.2 — history merge + restatement/split policy (+ tests with a known restatement)
-* [ ] M2.3 — cash-flow + capex extraction
+* [x] M2.1 — multi-filing fetch + download cache (`client.fetch_annual_reports`,
+  jump-scan). Verified live: TEL → 4 filings, 8-yr span (2018–2025).
+* [x] M2.2 — history merge + restatement/split policy (`src/parser/history_merger.py`,
+  `src/longhistory.py`). Verified live: correctly reconciled TEL's 3:1 split
+  (April 2024) — per-share restatements flagged at exactly ×3, split boundaries marked.
+* [x] M2.3 — cash-flow + capex. Operating/investing/financing CF + cash +
+  FCF proxy (= OCF + investing CF) are in the 5-year summary → flow into
+  history, long-history, and a new "Cash flow" chart panel automatically.
+  Capex (`PurchaseOfPropertyPlantAndEquipmentInvCF`) extracted as a single-period
+  `FinancialMetrics.capex` field (not in the 5 coverage metrics). Verified live on TEL.
 * [ ] M2.4 — segments
-* [ ] M2.5 — extend benchmark consistency checks to new fields
+* [x] M2.5 — benchmark extended: cash-flow coverage, capex presence, and a
+  **cash-flow reconciliation** (Δcash ≈ operating+investing+financing CF;
+  residual ≈ FX effect, tolerance 25%). New `CF`/`CF-rec` table columns +
+  `mean_cash_flow_coverage` aggregate. Verified: real TEL FY2025 reconciles at 1.1% residual.
 * [ ] M2.6 (stretch) — IR/earnings multimodal
 
 ## Success criteria

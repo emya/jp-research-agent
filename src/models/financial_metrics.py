@@ -42,6 +42,9 @@ class FinancialMetrics(BaseModel):
     net_income: Optional[MetricValue] = None
     assets: Optional[MetricValue] = None
     equity: Optional[MetricValue] = None
+    # Capex (cash flow statement) — extra single-period field, not one of the
+    # five core METRIC_KEYS (so coverage scoring is unaffected).
+    capex: Optional[MetricValue] = None
 
     source_document: str = Field(
         default="",

@@ -183,6 +183,88 @@ class EDINETClient:
                 print(f"  …scanned {offset}/{self.lookback_days} days back ({day.isoformat()})…", file=sys.stderr)
         return None
 
+    def _index_results(self, requests, day):
+        """One day's EDINET index results (raises on auth failure; None on a
+        transient error so the caller keeps scanning)."""
+        params = {"date": day.isoformat(), "type": 2, "Subscription-Key": self.api_key}
+        try:
+            resp = requests.get(f"{EDINET_API_BASE}/documents.json", params=params, timeout=30)
+        except Exception:
+            return None
+        if resp.status_code in (401, 403):
+            raise EDINETError(_AUTH_HELP.format(detail=f"HTTP {resp.status_code}"))
+        if resp.status_code != 200:
+            return []
+        data = resp.json()
+        if isinstance(data, dict) and str(data.get("StatusCode")) in ("401", "403"):
+            raise EDINETError(_AUTH_HELP.format(detail=data.get("message", "invalid subscription key")))
+        return data.get("results", []) or []
+
+    def _find_annual_reports(self, requests, sec_code: str, max_reports: int):
+        """Collect up to ``max_reports`` annual reports (newest first). After
+        each hit, jump ~300 days back (reports are yearly) to bound requests."""
+        import sys
+
+        today = _dt.date.today()
+        found, offset = [], 0
+        max_offset = self.lookback_days * max_reports + 120
+        while offset <= max_offset and len(found) < max_reports:
+            day = today - _dt.timedelta(days=offset)
+            results = self._index_results(requests, day)
+            match = None
+            for d in results or []:
+                if _sec_matches(d, sec_code) and str(d.get("docTypeCode")) == ANNUAL_REPORT_DOC_TYPE:
+                    match = d
+                    break
+            if match:
+                found.append(match)
+                if self.verbose:
+                    print(f"  found [{len(found)}/{max_reports}]: {match.get('docDescription')} "
+                          f"(docID {match.get('docID')}, {match.get('submitDateTime')})", file=sys.stderr)
+                offset += 300
+                continue
+            if self.verbose and offset and offset % 60 == 0:
+                print(f"  …scanned {offset} days back ({day.isoformat()}), {len(found)} found…", file=sys.stderr)
+            offset += 1
+        return found
+
+    def _build_live_filing(self, ticker: str, doc: dict, xbrl_path) -> FilingDocument:
+        return FilingDocument(
+            ticker=ticker,
+            company_name=(doc.get("filerName") or "").strip(),
+            edinet_code=doc.get("edinetCode", "") or "",
+            doc_id=doc["docID"],
+            form_type=doc.get("docDescription", "Annual Securities Report"),
+            fiscal_year=doc.get("periodEnd", "") or "",
+            submitted_date=doc.get("submitDateTime", "") or "",
+            source="edinet-live",
+            data_kind="OFFICIAL",
+            xbrl_path=str(xbrl_path),
+            note="Fetched from EDINET API v2.",
+        )
+
+    def fetch_annual_reports(self, ticker: str, max_reports: int = 3):
+        """Return up to ``max_reports`` of the company's most recent annual
+        reports (newest first) for building a long history. Offline mode returns
+        only the single bundled sample."""
+        if not self.live:
+            return [self._load_fixture(ticker)]
+        import requests
+
+        sec_code = f"{ticker}0"
+        docs = self._find_annual_reports(requests, sec_code, max_reports)
+        if not docs:
+            raise EDINETError(
+                f"No annual securities reports found for ticker {ticker} (secCode {sec_code})."
+            )
+        filings = []
+        for doc in docs:
+            target_dir = self.download_dir / ticker / doc["docID"]
+            target_dir.mkdir(parents=True, exist_ok=True)
+            xbrl_path = self._download_xbrl(requests, doc["docID"], target_dir)
+            filings.append(self._build_live_filing(ticker, doc, xbrl_path))
+        return filings
+
     def diagnostic_dates(self):
         """A curated set of dates likely to reveal the problem fast: the last few
         days (is the API returning data at all?) and last year's late-June
@@ -287,16 +369,25 @@ class EDINETClient:
         }
 
     def _download_xbrl(self, requests, doc_id: str, target_dir: Path) -> Path:
+        # Cache: if this filing was already downloaded, reuse it (no refetch).
+        cached = self._select_xbrl(target_dir)
+        if cached is not None:
+            return cached
         params = {"type": 1, "Subscription-Key": self.api_key}  # type=1 => ZIP with XBRL
         resp = requests.get(f"{EDINET_API_BASE}/documents/{doc_id}", params=params, timeout=120)
         if resp.status_code != 200:
             raise EDINETError(f"EDINET document download failed ({resp.status_code}) for {doc_id}")
         with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
             zf.extractall(target_dir)
-        # The audited financial instance lives under PublicDoc and ends in .xbrl.
+        chosen = self._select_xbrl(target_dir)
+        if chosen is None:
+            raise EDINETError(f"No .xbrl instance found in EDINET download for {doc_id}")
+        return chosen
+
+    @staticmethod
+    def _select_xbrl(target_dir: Path) -> Optional[Path]:
+        """Pick the audited financial instance (PublicDoc *.xbrl) if present."""
         candidates = sorted(target_dir.rglob("*.xbrl"))
         public = [p for p in candidates if "PublicDoc" in str(p)]
-        chosen = (public or candidates)
-        if not chosen:
-            raise EDINETError(f"No .xbrl instance found in EDINET download for {doc_id}")
-        return chosen[0]
+        chosen = public or candidates
+        return chosen[0] if chosen else None
