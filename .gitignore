@@ -5,3 +5,4 @@ data/output/
 data/downloads/
 .pytest_cache/
 .env
+IR/

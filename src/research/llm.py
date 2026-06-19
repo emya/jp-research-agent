@@ -53,6 +53,43 @@ def llm_available() -> bool:
     return active_provider() is not None
 
 
+def anthropic_available() -> bool:
+    return bool(os.environ.get("ANTHROPIC_API_KEY"))
+
+
+def analyze_pdf_json(system: str, user: str, pdf_bytes: bytes, schema: Dict, max_tokens: int = 8000) -> Dict:
+    """Analyze a PDF (e.g. an IR deck) with Claude's native PDF support and
+    return JSON validated against ``schema``. Anthropic-only — clean PDF input is
+    a Claude feature; OpenAI would need page-image conversion."""
+    import base64
+
+    if not anthropic_available():
+        raise RuntimeError(
+            "PDF analysis requires ANTHROPIC_API_KEY — Claude has native PDF support; "
+            "OpenAI would need page-image conversion (not implemented)."
+        )
+    import anthropic
+
+    b64 = base64.standard_b64encode(pdf_bytes).decode("utf-8")
+    client = anthropic.Anthropic()
+    resp = client.messages.create(
+        model=_anthropic_model(),
+        max_tokens=max_tokens,
+        thinking={"type": "adaptive"},
+        system=system,
+        messages=[{
+            "role": "user",
+            "content": [
+                {"type": "document", "source": {"type": "base64", "media_type": "application/pdf", "data": b64}},
+                {"type": "text", "text": user},
+            ],
+        }],
+        output_config={"format": {"type": "json_schema", "schema": schema}},
+    )
+    text = next((b.text for b in resp.content if b.type == "text"), "")
+    return json.loads(text)
+
+
 def active_model_label() -> str:
     provider = active_provider()
     if provider == "anthropic":

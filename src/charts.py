@@ -22,6 +22,8 @@ _PANELS: List[Tuple[str, str, str, List[Tuple[str, str]]]] = [
      [("revenue", "bar"), ("ordinary_income", "line"), ("net_income", "line")]),
     ("Balance sheet", "¥ trillion", "yen_t",
      [("total_assets", "line"), ("net_assets", "line"), ("debt", "line")]),
+    ("Cash flow", "¥ trillion", "yen_t",
+     [("operating_cf", "line"), ("investing_cf", "line"), ("financing_cf", "line"), ("fcf", "line")]),
     ("Per-share value", "¥ / share", "yen",
      [("eps", "line"), ("bps", "line")]),
     ("Valuation — P/E ratio (PER)", "× (times)", "ratio",
@@ -33,6 +35,7 @@ _PANELS: List[Tuple[str, str, str, List[Tuple[str, str]]]] = [
 _COLORS = {
     "revenue": "#9ecae1", "ordinary_income": "#fd8d3c", "net_income": "#31a354",
     "total_assets": "#3182bd", "net_assets": "#756bb1", "debt": "#e6550d",
+    "operating_cf": "#31a354", "investing_cf": "#e6550d", "financing_cf": "#756bb1", "fcf": "#3182bd",
     "eps": "#31a354", "bps": "#756bb1",
     "per": "#d62728",
     "net_margin": "#31a354", "roe": "#e6550d", "equity_ratio": "#756bb1", "payout_ratio": "#3182bd",

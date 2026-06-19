@@ -6,7 +6,7 @@ for traceability. Derived series (debt, net margin) record their formula.
 """
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -17,6 +17,17 @@ class HistoryPoint(BaseModel):
     value: float
     source_element: str
     context: str = ""
+
+
+class HistoryDiscrepancy(BaseModel):
+    """A flag raised while merging multiple filings into one long history."""
+
+    metric: str
+    year: int
+    kind: str  # "restatement" | "possible_split"
+    note: str
+    value_newer: Optional[float] = None
+    value_older: Optional[float] = None
 
 
 class MetricSeries(BaseModel):
@@ -38,6 +49,13 @@ class FinancialHistory(BaseModel):
     company: str
     ticker: str
     series: Dict[str, MetricSeries] = Field(default_factory=dict)
+    # Populated when merged from multiple filings (MVP2 Track B).
+    n_filings: int = 1
+    discrepancies: List[HistoryDiscrepancy] = Field(default_factory=list)
 
     def has_data(self) -> bool:
         return any(s.points for s in self.series.values())
+
+    def year_span(self) -> int:
+        years = [p.year for s in self.series.values() for p in s.points]
+        return (max(years) - min(years) + 1) if years else 0

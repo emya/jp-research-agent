@@ -219,6 +219,35 @@
   <jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults contextRef="Prior3YearDuration_NonConsolidatedMember" unitRef="JPY" decimals="2">696.00</jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults>
   <jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults contextRef="Prior4YearDuration_NonConsolidatedMember" unitRef="JPY" decimals="2">470.00</jpcrp_cor:DividendPaidPerShareSummaryOfBusinessResults>
 
+  <!-- Cash flow (5-year summary) -->
+  <jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">410000000000</jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">520000000000</jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="JPY" decimals="-6">480000000000</jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="JPY" decimals="-6">320000000000</jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="JPY" decimals="-6">250000000000</jpcrp_cor:NetCashProvidedByUsedInOperatingActivitiesSummaryOfBusinessResults>
+
+  <jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">-130000000000</jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">-150000000000</jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="JPY" decimals="-6">-120000000000</jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="JPY" decimals="-6">-100000000000</jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="JPY" decimals="-6">-80000000000</jpcrp_cor:NetCashProvidedByUsedInInvestingActivitiesSummaryOfBusinessResults>
+
+  <jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">-250000000000</jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">-350000000000</jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults contextRef="Prior2YearDuration" unitRef="JPY" decimals="-6">-300000000000</jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults contextRef="Prior3YearDuration" unitRef="JPY" decimals="-6">-150000000000</jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults>
+  <jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults contextRef="Prior4YearDuration" unitRef="JPY" decimals="-6">-120000000000</jpcrp_cor:NetCashProvidedByUsedInFinancingActivitiesSummaryOfBusinessResults>
+
+  <jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults contextRef="CurrentYearInstant" unitRef="JPY" decimals="-6">410000000000</jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults>
+  <jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults contextRef="Prior1YearInstant" unitRef="JPY" decimals="-6">380000000000</jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults>
+  <jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults contextRef="Prior2YearInstant" unitRef="JPY" decimals="-6">360000000000</jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults>
+  <jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults contextRef="Prior3YearInstant" unitRef="JPY" decimals="-6">300000000000</jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults>
+  <jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults contextRef="Prior4YearInstant" unitRef="JPY" decimals="-6">230000000000</jpcrp_cor:CashAndCashEquivalentsSummaryOfBusinessResults>
+
+  <!-- Capex (cash flow statement, main; current + prior) -->
+  <jppfs_cor:PurchaseOfPropertyPlantAndEquipmentInvCF contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">-80000000000</jppfs_cor:PurchaseOfPropertyPlantAndEquipmentInvCF>
+  <jppfs_cor:PurchaseOfPropertyPlantAndEquipmentInvCF contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">-95000000000</jppfs_cor:PurchaseOfPropertyPlantAndEquipmentInvCF>
+
   <!-- Narrative sections (iXBRL text blocks; HTML content) -->
   <jpcrp_cor:ManagementAnalysisOfFinancialPositionOperatingResultsAndCashFlowsTextBlock contextRef="CurrentYearDuration"><![CDATA[
     <p>当連結会計年度の半導体製造装置市場は、メモリ向け投資の調整局面が継続しました。
