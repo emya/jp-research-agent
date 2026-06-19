@@ -1,6 +1,6 @@
 # MVP2 Track A — Peer / Sector Comparison
 
-Status: **in progress** (started 2026-06-18)
+Status: **DONE** (2026-06-18) — verified live across the 5 semiconductor names.
 
 ## Goal
 
@@ -41,7 +41,8 @@ history from MVP1.
 * [x] M1.3 — sector dashboard (Plotly) — `src/charts_compare.py`
 * [x] M1.4 — comparison memo (LLM + offline fallback)
 * [x] M1.5 — CLI + JSON/markdown artifacts (`python -m src.comparison <sector>`)
-* [ ] M1.6 — run live across the semiconductor set; verify (in progress)
+* [x] M1.6 — run live across the semiconductor set; verified (also surfaced &
+  fixed the `Prior1Year*` prior-context bug → YoY now extracts on real filings)
 
 ## Success criteria
 
