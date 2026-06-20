@@ -21,9 +21,11 @@ _REPO_ROOT = Path(__file__).resolve().parents[1]
 _DEFAULT_OUTPUT = _REPO_ROOT / "data" / "output" / "management"
 
 _BIO_SYSTEM = (
-    "Write a concise, factual 1-2 sentence English professional bio from the "
-    "officer's Japanese career summary. State only what's in the text (roles, "
-    "years, current position). No embellishment or opinion."
+    "Write a factual English professional bio (2-4 sentences) from the officer's "
+    "Japanese career summary. Trace their career progression — prior companies and "
+    "roles with the years given — and end with their current position. Translate "
+    "company and role names to English. State ONLY what's in the text: no "
+    "embellishment, no opinion, no invented dates or employers."
 )
 _BIO_SCHEMA = {
     "type": "object",

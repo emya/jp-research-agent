@@ -27,7 +27,9 @@ _SYSTEM = (
     "filing excerpts provided, write a balanced bull thesis and bear thesis for "
     "the company. Ground every claim in the provided data or the filing's own "
     "outlook/risk language. Do not invent figures or make a buy/sell "
-    "recommendation — these are analytical arguments, not advice."
+    "recommendation — these are analytical arguments, not advice. "
+    "Write your ENTIRE response in English; translate any Japanese filing language "
+    "rather than quoting it."
 )
 
 
@@ -58,14 +60,20 @@ class ThesisGenerator:
 
     # --------------------------------------------------------------- offline
     def _generate_offline(self, ctx: Dict) -> Dict:
+        # Offline mode is the no-LLM fallback. It builds the theses from the
+        # structured numbers only — it does NOT splice raw filing text, which for
+        # real Japanese filings is in Japanese. (LLM mode writes the full English
+        # narrative grounded in the section text.)
         g = ctx["growth"]
         margin = ctx["operating_margin"]
-        outlook = ctx["sections"].get("future_outlook", "")
-        risks = ctx["sections"].get("business_risks", "")
 
         bull_parts: List[str] = []
-        if outlook:
-            bull_parts.append(_first_sentences(outlook, 2))
+        rev_g = g.get("revenue")
+        if rev_g is not None and rev_g > 0:
+            bull_parts.append(
+                f"Revenue grew {format_pct(rev_g)} year over year, evidence of "
+                "resilient end-market demand."
+            )
         if margin is not None:
             bull_parts.append(
                 f"The company sustained an operating margin of {margin * 100:.1f}%, "
@@ -94,9 +102,11 @@ class ThesisGenerator:
                 "Year-over-year declines (" + ", ".join(decl) + ") underscore the "
                 "cyclicality of the business."
             )
-        first_risk = _first_bullet(risks)
-        if first_risk:
-            bear_parts.append("The filing's own risk factors flag: " + first_risk)
+        bear_parts.append(
+            "Cyclical end-market demand, customer and geographic concentration, and "
+            "currency and export-control exposure are the structural risks for the "
+            "sector; see the filing's risk-factor section for the company's own disclosure."
+        )
         if not bear_parts:
             bear_parts.append(
                 "Cyclical demand and the risk factors disclosed in the filing could "

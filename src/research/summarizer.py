@@ -28,7 +28,9 @@ _SYSTEM = (
     "securities report for an investor. Use ONLY the structured financials and "
     "filing excerpts provided — do not invent figures. The structured financials "
     "are authoritative; quote them rather than re-deriving them. Be concise, "
-    "specific, and balanced. Explain what changed and why where the filing says so."
+    "specific, and balanced. Explain what changed and why where the filing says so. "
+    "Write your ENTIRE response in English: the filing excerpts are in Japanese, so "
+    "translate and paraphrase them — never output Japanese text."
 )
 
 
@@ -89,9 +91,9 @@ class Summarizer:
         summary = [figure_sentence]
         if ctx["operating_margin"] is not None:
             summary.append(f"Operating margin was {ctx['operating_margin'] * 100:.1f}%.")
-        mdna = ctx["sections"].get("management_discussion")
-        if mdna:
-            summary.append("Per management's discussion: " + _first_sentences(mdna, 2))
+        # Offline mode does not splice raw MD&A text (Japanese in real filings) into
+        # the summary; the LLM path supplies the English narrative. We keep the
+        # deterministic, figure-based sentences only.
         result_summary = " ".join(summary)
 
         # Key risks: prefer the bulleted structure of the risk section.

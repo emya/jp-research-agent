@@ -2,7 +2,7 @@
 
 Turn Japanese public-company disclosures into traceable, investor-oriented research — financials, history, peer comparison, management, and an LLM memo — from the command line.
 
-> **Runs with zero setup.** `docker run --rm jp-research-agent` produces a research memo from a bundled sample, no API keys required. Add keys to pull real EDINET data and LLM-written analysis.
+> **Runs with zero setup.** `docker compose up` opens a web UI at `localhost:8000`; `docker run --rm jp-research-agent` prints a memo from a bundled sample — **both work with no API keys**. Add keys (in the UI or `.env`) for real EDINET data and LLM analysis.
 
 ---
 
@@ -47,13 +47,29 @@ This makes the output verifiable, and it's why the benchmark below can cross-che
 | **IR-deck analysis** — reads an earnings PDF, cross-checks vs the filing | `python -m src.presentation IR/8035.pdf --ticker 8035` | your PDF + Claude (PDF) |
 | **Research benchmark** — extraction accuracy + cross-source consistency + LLM judge | `python -m src.evaluation.benchmark 8035 6857 6920 7735 6146` | EDINET + LLM |
 
-Outputs (memo, JSON, interactive `*.html` charts) are written under `data/output/<ticker>/`.
+Outputs (memo, JSON, interactive `*.html` charts) are written under `data/output/<ticker>/`. Everything is also available through a **minimal web UI** (`docker compose up` → `localhost:8000`): enter a ticker, optionally paste API keys (kept in memory only, never written to disk) and upload an IR-deck PDF, and view the memo, charts, comparison, management, quarterly, and IR analysis in the browser.
 
 ---
 
 ## Quickstart
 
 ### Option A — Docker (recommended; nothing to install)
+
+**Web UI** — `docker compose up`, then open **http://localhost:8000**. A single page where you:
+
+- enter a **ticker** and pick which sections to run — memo, financial history, management, quarterly, IR deck, peer comparison;
+- optionally **paste API keys** in the browser (collapsible section; kept **in memory only**, never written to disk) and **upload an IR-deck PDF**;
+- give a **custom peer list** for the comparison (e.g. `7201, 7267`).
+
+The bundled sample (`8035`) runs with **no keys**. With keys set, the memo and management bios are LLM-written **in English** and any ticker works (the first live fetch per ticker takes ~1–2 min).
+
+```bash
+docker compose up            # -> http://localhost:8000   (offline sample needs no keys)
+docker compose up --build    # IMPORTANT: rebuild after changing/pulling code (otherwise the old image is reused)
+docker compose down          # stop
+```
+
+**CLI**:
 
 ```bash
 docker build -t jp-research-agent .

@@ -15,6 +15,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # App code (the bundled offline sample under data/fixtures comes with it).
 COPY . .
 
+# Web UI port (docker compose up -> http://localhost:8000).
+EXPOSE 8000
+
 # `python` is the entrypoint, so any command is just its args, e.g.:
 #   docker run --rm jp-research-agent main.py --ticker 8035 --no-llm
 #   docker run --rm jp-research-agent -m src.comparison semiconductors

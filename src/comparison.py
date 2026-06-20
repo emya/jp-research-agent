@@ -153,7 +153,8 @@ _MEMO_SYSTEM = (
     "companies, using only the provided figures (extracted from XBRL filings). "
     "Make comparative observations (who is cheaper on P/E, who grows faster, who "
     "is more profitable) and explain them with the numbers. Do NOT make buy/sell "
-    "recommendations or predict prices — relative analysis only."
+    "recommendations or predict prices — relative analysis only. "
+    "Write your ENTIRE response in English."
 )
 
 

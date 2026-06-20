@@ -67,16 +67,20 @@ class EDINETClient:
         # Default window must reach last year's filing: a March fiscal-year-end
         # company files its annual report in June (~360 days back).
         self.lookback_days = lookback_days or (int(env_lookback) if env_lookback else 460)
+        self._filing_cache: dict = {}
 
     @property
     def live(self) -> bool:
         return bool(self.api_key)
 
     def fetch_filing(self, ticker: str) -> FilingDocument:
-        """Return the latest annual report filing for a ticker."""
-        if self.live:
-            return self._fetch_live(ticker)
-        return self._load_fixture(ticker)
+        """Return the latest annual report filing for a ticker (cached per client,
+        so reusing one client for several analyses avoids repeat index scans)."""
+        if ticker in self._filing_cache:
+            return self._filing_cache[ticker]
+        doc = self._fetch_live(ticker) if self.live else self._load_fixture(ticker)
+        self._filing_cache[ticker] = doc
+        return doc
 
     # ------------------------------------------------------------------ fixture
     def _load_fixture(self, ticker: str) -> FilingDocument:
