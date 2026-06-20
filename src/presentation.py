@@ -28,7 +28,9 @@ _SYSTEM = (
     "management emphasizes, and notable figures or chart takeaways. Be faithful to "
     "the deck — do not invent numbers. When official filing financials are "
     "provided, compare the deck's headline figures to them and report alignment or "
-    "discrepancies. This is summarization, not investment advice — no buy/sell calls."
+    "discrepancies. This is summarization, not investment advice — no buy/sell calls. "
+    "Write your ENTIRE response in English even if the deck is in Japanese — "
+    "translate; never output Japanese text."
 )
 
 _FIELDS = ["summary", "key_messages", "guidance_and_targets", "highlighted_risks",

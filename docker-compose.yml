@@ -1,14 +1,20 @@
-# Convenience wrapper. First: cp .env.example .env  (empty keys => offline mode).
-# Then e.g.:
-#   docker compose run --rm agent main.py --ticker 8035 --no-llm
-#   docker compose run --rm agent -m src.comparison semiconductors
-#   docker compose run --rm agent -m unittest discover -s tests
+# Web UI:   docker compose up        ->  http://localhost:8000
+#           (enter API keys / upload an IR PDF in the browser; offline sample needs none)
+# CLI:      docker compose run --rm cli main.py --ticker 8035 --no-llm
+#           docker compose run --rm cli -m unittest discover -s tests
 services:
-  agent:
+  web:
     build: .
     image: jp-research-agent
-    env_file:
-      - .env
+    command: ["-m", "src.web.app"]      # image ENTRYPOINT is `python`
+    ports:
+      - "8000:8000"
     volumes:
-      # Generated memos/charts land on your host under ./data/output
+      - ./data/output:/app/data/output
+
+  cli:
+    build: .
+    image: jp-research-agent
+    profiles: ["cli"]                   # only runs with `docker compose run cli ...`
+    volumes:
       - ./data/output:/app/data/output

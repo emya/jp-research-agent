@@ -3,3 +3,4 @@ requests>=2.28
 anthropic>=0.40
 openai>=1.40
 plotly>=5
+flask>=3
