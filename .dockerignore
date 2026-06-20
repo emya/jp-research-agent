@@ -1,0 +1,12 @@
+# Keep data/fixtures (the offline sample) — exclude everything heavy/secret.
+.git/
+.github/
+.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.env
+IR/
+data/output/
+data/downloads/
