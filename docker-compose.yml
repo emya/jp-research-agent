@@ -1,0 +1,14 @@
+# Convenience wrapper. First: cp .env.example .env  (empty keys => offline mode).
+# Then e.g.:
+#   docker compose run --rm agent main.py --ticker 8035 --no-llm
+#   docker compose run --rm agent -m src.comparison semiconductors
+#   docker compose run --rm agent -m unittest discover -s tests
+services:
+  agent:
+    build: .
+    image: jp-research-agent
+    env_file:
+      - .env
+    volumes:
+      # Generated memos/charts land on your host under ./data/output
+      - ./data/output:/app/data/output
