@@ -248,6 +248,37 @@
   <jppfs_cor:PurchaseOfPropertyPlantAndEquipmentInvCF contextRef="CurrentYearDuration" unitRef="JPY" decimals="-6">-80000000000</jppfs_cor:PurchaseOfPropertyPlantAndEquipmentInvCF>
   <jppfs_cor:PurchaseOfPropertyPlantAndEquipmentInvCF contextRef="Prior1YearDuration" unitRef="JPY" decimals="-6">-95000000000</jppfs_cor:PurchaseOfPropertyPlantAndEquipmentInvCF>
 
+  <xbrli:unit id="shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+
+  <!-- 役員の状況 (officers) — one member per officer under DirectorsAndOtherOfficersAxis -->
+  <xbrli:context id="FilingDateInstant_Officer1">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+      <xbrli:segment><xbrldi:explicitMember dimension="jpcrp_cor:DirectorsAndOtherOfficersAxis">jpcrp_cor:YamadaTaroMember</xbrldi:explicitMember></xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period><xbrli:instant>2024-06-27</xbrli:instant></xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FilingDateInstant_Officer2">
+    <xbrli:entity><xbrli:identifier scheme="http://disclosure.edinet-fsa.go.jp">E02652</xbrli:identifier>
+      <xbrli:segment><xbrldi:explicitMember dimension="jpcrp_cor:DirectorsAndOtherOfficersAxis">jpcrp_cor:SuzukiHanakoMember</xbrldi:explicitMember></xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period><xbrli:instant>2024-06-27</xbrli:instant></xbrli:period>
+  </xbrli:context>
+
+  <jpcrp_cor:NameInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer1">山田　太郎</jpcrp_cor:NameInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:OfficialTitleOrPositionInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer1">代表取締役　社長　CEO</jpcrp_cor:OfficialTitleOrPositionInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:DateOfBirthInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer1">1965-04-01</jpcrp_cor:DateOfBirthInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:TermOfOfficeInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer1">2年</jpcrp_cor:TermOfOfficeInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:NumberOfSharesHeldOrdinarySharesInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer1" unitRef="shares" decimals="0">50000</jpcrp_cor:NumberOfSharesHeldOrdinarySharesInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:CareerSummaryInformationAboutDirectorsAndCorporateAuditorsTextBlock contextRef="FilingDateInstant_Officer1">1988年 当社入社 / 2015年 代表取締役社長就任</jpcrp_cor:CareerSummaryInformationAboutDirectorsAndCorporateAuditorsTextBlock>
+
+  <jpcrp_cor:NameInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer2">鈴木　花子</jpcrp_cor:NameInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:OfficialTitleOrPositionInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer2">取締役</jpcrp_cor:OfficialTitleOrPositionInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:DateOfBirthInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer2">1970-07-15</jpcrp_cor:DateOfBirthInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:NumberOfSharesHeldOrdinarySharesInformationAboutDirectorsAndCorporateAuditors contextRef="FilingDateInstant_Officer2" unitRef="shares" decimals="0">10000</jpcrp_cor:NumberOfSharesHeldOrdinarySharesInformationAboutDirectorsAndCorporateAuditors>
+  <jpcrp_cor:CareerSummaryInformationAboutDirectorsAndCorporateAuditorsTextBlock contextRef="FilingDateInstant_Officer2">1992年 当社入社 / 2020年 取締役就任</jpcrp_cor:CareerSummaryInformationAboutDirectorsAndCorporateAuditorsTextBlock>
+
   <!-- Narrative sections (iXBRL text blocks; HTML content) -->
   <jpcrp_cor:ManagementAnalysisOfFinancialPositionOperatingResultsAndCashFlowsTextBlock contextRef="CurrentYearDuration"><![CDATA[
     <p>当連結会計年度の半導体製造装置市場は、メモリ向け投資の調整局面が継続しました。
