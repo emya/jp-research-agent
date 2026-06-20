@@ -249,3 +249,4 @@ It does not provide investment advice and should not be used as the sole basis f
 
 ## Notes:
 EDINET is a bit old-fashioned. When creating an API key, you may need to use Microsoft Edge or enable pop-ups in Chrome.
+https://jpx-jquants.com/en
