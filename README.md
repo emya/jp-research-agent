@@ -8,7 +8,13 @@ Turn Japanese public-company disclosures into traceable, investor-oriented resea
 
 ## Why this exists
 
-Researching Japanese companies is frustrating even for native speakers: the information is public but **fragmented** across EDINET filings, XBRL data, annual reports, and IR materials, and buried in hundreds of pages. The challenge is bigger for non-Japanese investors. Semiconductor-supply-chain names — Tokyo Electron, Advantest, SCREEN, Lasertec, Disco — are globally important yet hard to understand at a glance.
+I have a friend who's originally from Japan and actively researches and invests in equities. During a conversation about companies in the semiconductor supply chain, she said something that surprised me:
+
+> Even as a native Japanese speaker, researching Japanese public companies is often frustrating. The information exists, but it is fragmented across EDINET filings, annual reports, earnings presentations, and company investor-relations websites.
+
+At first I assumed this was mainly a language barrier for international investors. But the more I looked, the broader the problem got: the information is public yet **fragmented and buried** in hundreds of pages, historical trends aren't easily accessible, and understanding *what actually changed* between reporting periods takes real manual effort. It's harder still for non-Japanese investors.
+
+And it matters today: semiconductor-supply-chain names — Tokyo Electron, Advantest, SCREEN, Lasertec, Disco — are increasingly important to investors worldwide, yet understanding these businesses means navigating hundreds of pages of disclosures.
 
 **The question this explores:** can a system automatically turn raw Japanese disclosures into an analyst-style first read — *without* fabricating the numbers?
 
