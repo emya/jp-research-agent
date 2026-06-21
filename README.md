@@ -35,6 +35,8 @@ This makes the output verifiable, and it's why the benchmark below can cross-che
 
 ## What it does
 
+The commands below use `8035` (Tokyo Electron) as a concrete, copy-pasteable example — it's the bundled sample, so they run with **no keys**. Swap in any 4-digit TSE ticker (with an `EDINET_API_KEY` set) to run against real filings.
+
 | Capability | Command | Source |
 |---|---|---|
 | **Research memo** (summary, highlights, risks, bull/bear) | `python main.py --ticker 8035` | EDINET XBRL + LLM |
