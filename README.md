@@ -6,6 +6,20 @@ Turn Japanese public-company disclosures into traceable, investor-oriented resea
 
 ---
 
+## Demo
+
+**▶ [Open the interactive pitch deck](https://emya.github.io/jp-research-agent/pitch.html)** — the problem, the approach, and a live walkthrough video (served via GitHub Pages from [`docs/pitch.html`](docs/pitch.html); also opens locally in any browser).
+
+**Walkthrough video** — a ~minute tour of the web UI on the offline sample (no keys): enter a ticker → memo, charts, management, and peer comparison.
+
+<!-- TIP for inline playback: drag docs/demo.mp4 into GitHub's README editor (or any issue
+     comment); GitHub returns a user-attachments URL that renders as an inline player with
+     no repo bloat. Paste that URL on the line below to replace the click-to-play link. -->
+
+[▶ Watch the demo](docs/demo.mp4)
+
+---
+
 ## Why this exists
 
 I have a friend who's originally from Japan and actively researches and invests in equities. During a conversation about companies in the semiconductor supply chain, she said something that surprised me:
@@ -34,6 +48,8 @@ This makes the output verifiable, and it's why the benchmark below can cross-che
 ---
 
 ## What it does
+
+The commands below use `8035` (Tokyo Electron) as a concrete, copy-pasteable example — it's the bundled sample, so they run with **no keys**. Swap in any 4-digit TSE ticker (with an `EDINET_API_KEY` set) to run against real filings.
 
 | Capability | Command | Source |
 |---|---|---|
@@ -177,7 +193,7 @@ python -m unittest discover -s tests
 
 ---
 
-## Scope & limitations (honest)
+## Scope & limitations
 
 - **Not investment advice.** A research starting point, not a recommendation engine. No trading signals, no forecasting.
 - **Sample data is synthetic.** Zero-key runs use an illustrative fixture (labeled `SAMPLE`); real numbers need `EDINET_API_KEY`.
