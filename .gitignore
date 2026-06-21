@@ -6,3 +6,6 @@ data/downloads/
 .pytest_cache/
 .env
 IR/
+
+# Raw screen recordings — keep only the converted demo.mp4 in docs/
+docs/*.mov

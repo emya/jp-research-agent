@@ -6,6 +6,20 @@ Turn Japanese public-company disclosures into traceable, investor-oriented resea
 
 ---
 
+## Demo
+
+**▶ [Open the interactive pitch deck](https://emya.github.io/jp-research-agent/pitch.html)** — the problem, the approach, and a live walkthrough video (served via GitHub Pages from [`docs/pitch.html`](docs/pitch.html); also opens locally in any browser).
+
+**Walkthrough video** — a ~minute tour of the web UI on the offline sample (no keys): enter a ticker → memo, charts, management, and peer comparison.
+
+<!-- TIP for inline playback: drag docs/demo.mp4 into GitHub's README editor (or any issue
+     comment); GitHub returns a user-attachments URL that renders as an inline player with
+     no repo bloat. Paste that URL on the line below to replace the click-to-play link. -->
+
+[▶ Watch the demo](docs/demo.mp4)
+
+---
+
 ## Why this exists
 
 I have a friend who's originally from Japan and actively researches and invests in equities. During a conversation about companies in the semiconductor supply chain, she said something that surprised me:
