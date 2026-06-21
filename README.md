@@ -179,7 +179,7 @@ python -m unittest discover -s tests
 
 ---
 
-## Scope & limitations (honest)
+## Scope & limitations
 
 - **Not investment advice.** A research starting point, not a recommendation engine. No trading signals, no forecasting.
 - **Sample data is synthetic.** Zero-key runs use an illustrative fixture (labeled `SAMPLE`); real numbers need `EDINET_API_KEY`.
